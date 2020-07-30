@@ -8,7 +8,7 @@ jobs:
       - setup_remote_docker:
           version: 19.03.12
       - run: |
-          pkg install git
+          apk add git
       - run: |
           export DOCKER_BUILDKIT=1
       - run: |
