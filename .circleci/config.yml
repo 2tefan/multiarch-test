@@ -8,6 +8,8 @@ jobs:
       - setup_remote_docker:
           version: 18.09.3
       - run: |
+          export DOCKER_CLI_EXPERIMENTAL=enabled
+      - run: |
           docker buildx build \
             --platform linux/arm/v7,linux/arm64/v8,linux/amd64 \
             --tag 2tefan/multiarch-test:test .
