@@ -2,11 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:latest
+      - image: alpine:latest
     steps:
       - checkout
       - setup_remote_docker:
           version: 19.03.12
+      - run: |
+          pkg install git
       - run: |
           export DOCKER_BUILDKIT=1
       - run: |
