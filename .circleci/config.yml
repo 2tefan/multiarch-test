@@ -2,11 +2,19 @@ version: 2
 jobs:
   build:
     docker:
-      - image: jdrouet/docker-with-buildx:stable
+      - image: docker:latest
     steps:
       - checkout
       - setup_remote_docker:
           version: 19.03.12
+      - run: |
+          export DOCKER_BUILDKIT=1
+      - run: |
+          docker build --platform=local -o . git://github.com/docker/buildx
+      - run: |
+          mkdir -p ~/.docker/cli-plugins
+      - run: |
+          mv buildx ~/.docker/cli-plugins/docker-buildx
       - run: |
           docker context create testContext
       - run: |
