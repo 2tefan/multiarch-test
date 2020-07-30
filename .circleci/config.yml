@@ -20,7 +20,7 @@ jobs:
       - run: |
           docker buildx build --push \
             --platform linux/arm64/v8,linux/amd64 \
-            --tag 2tefan/multiarch-test:test .
+            --tag 2tefan/multiarch-test:buildx .
 
 workflows:
  version: 2
