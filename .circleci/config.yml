@@ -8,7 +8,7 @@ jobs:
       - setup_remote_docker:
           version: 19.03.12
       - run: |
-          docker context create --use
+          docker context create testContext
       - run: |
           docker buildx create --use
       - run: |
