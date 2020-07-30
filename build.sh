@@ -23,7 +23,7 @@ docker manifest create $IMAGE:$BASETAG --amend $IMAGE:$BASETAG-amd64 --amend $IM
 # docker manifest create $IMAGE:$BASETAG --amend $IMAGE:$BASETAG-$ARCHITECTURE
 
 docker manifest annotate $IMAGE:$BASETAG $IMAGE:$BASETAG-$ARCHITECTURE --os linux --arch $ARCHITECTURE
-# docker manifest annotate $IMAGE $IMAGE:arm32v7 --os linux --arch arm
-# docker manifest annotate $IMAGE $IMAGE:arm64v8 --os linux --arch arm64
+# docker manifest annotate $IMAGE $IMAGE:amd64 --os linux --arch amd64
+# docker manifest annotate $IMAGE $IMAGE:arm64 --os linux --arch arm64
 
-docker manifest push $IMAGE:$BASETAG
+docker manifest push $IMAGE:$BASETAG --purge
