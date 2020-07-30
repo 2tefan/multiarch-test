@@ -8,7 +8,7 @@ jobs:
       - setup_remote_docker:
           version: 19.03.12
       - run: |
-          export DOCKER_CLI_EXPERIMENTAL=enabled
+          docker buildx create --use
       - run: |
           docker buildx build \
             --platform linux/arm/v7,linux/arm64/v8,linux/amd64 \
