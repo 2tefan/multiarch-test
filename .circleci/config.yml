@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 2tefan/multiarch-test:test
+      - image: circleci/golang:1.13-alpine
     steps:
       - checkout
       - setup_remote_docker:
