@@ -1,6 +1,6 @@
 FROM busybox
 
 ADD bash/ /bash/
-RUN /bash/main.sh
+RUN echo TEST
 
 CMD bash/run.sh
