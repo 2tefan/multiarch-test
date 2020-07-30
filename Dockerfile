@@ -1,3 +1,6 @@
-FROM debian:buster-slim
+FROM busybox
 
-RUN echo TEST
+ADD bash/ /bash/
+RUN /bash/main.sh
+
+CMD bash/run.sh
