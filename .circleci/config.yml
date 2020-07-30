@@ -16,8 +16,9 @@ jobs:
       - run: docker buildx ls
       - run: docker context create testContext
       - run: docker buildx create --use testContext
+      - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: |
-          docker buildx build \
+          docker buildx build --push \
             --platform linux/arm64/v8,linux/amd64 \
             --tag 2tefan/multiarch-test:test .
 
