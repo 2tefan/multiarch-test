@@ -12,7 +12,7 @@ jobs:
       - run: |
           export DOCKER_BUILDKIT=1
       - run: |
-          docker build --platform=local -o . git://github.com/docker/buildx
+          docker build --platform=amd64 -o . git://github.com/docker/buildx
       - run: |
           mkdir -p ~/.docker/cli-plugins
       - run: |
