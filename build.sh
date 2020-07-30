@@ -16,8 +16,7 @@ case "$(arch)" in
 	    ;;
 esac
 
-docker pull $IMAGE:$BASETAG-$ARCHITECTURE
-docker pull $IMAGE:$BASETAG
+docker rmi $IMAGE:$BASETAG -f
 
 docker build --tag $IMAGE:$BASETAG-$ARCHITECTURE .
 docker push $IMAGE:$BASETAG-$ARCHITECTURE
