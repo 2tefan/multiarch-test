@@ -16,12 +16,13 @@ case "$(arch)" in
 	    ;;
 esac
 
+# Building & pushing to dockerhub
 docker build --tag $IMAGE:$BASETAG-$ARCHITECTURE .
 docker push $IMAGE:$BASETAG-$ARCHITECTURE
 
+# Creating manifest for basetag
 docker rmi $IMAGE:$BASETAG -f
 docker manifest create $IMAGE:$BASETAG --amend $IMAGE:$BASETAG-amd64 --amend $IMAGE:$BASETAG-arm64
-# docker manifest create $IMAGE:$BASETAG --amend $IMAGE:$BASETAG-$ARCHITECTURE
 
 docker manifest annotate $IMAGE:$BASETAG $IMAGE:$BASETAG-$ARCHITECTURE --os linux --arch $ARCHITECTURE
 # docker manifest annotate $IMAGE $IMAGE:amd64 --os linux --arch amd64
