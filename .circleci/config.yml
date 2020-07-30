@@ -2,14 +2,22 @@ version: 2
 jobs:
   build:
     docker:
-      - image: jdrouet/docker-with-buildx:stable
+      - image: docker:stable
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.09.3
+          version: 19.03.12
+      - run: apk add make curl
+      - run: mkdir -vp ~/.docker/cli-plugins/
+      - run: curl --silent -L --output ~/.docker/cli-plugins/docker-buildx https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64
+      - run: chmod a+x ~/.docker/cli-plugins/docker-buildx
+      - run: docker buildx version
+      - run: docker buildx ls
+      - run: docker context create testContext
+      - run: docker buildx create --use testContext
       - run: |
           docker buildx build \
-            --platform linux/arm/v7,linux/arm64/v8,linux/amd64 \
+            --platform linux/arm64/v8,linux/amd64 \
             --tag 2tefan/multiarch-test:test .
 
 workflows:
