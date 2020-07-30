@@ -11,6 +11,7 @@ jobs:
       - run: mkdir -vp ~/.docker/cli-plugins/
       - run: curl --silent -L --output ~/.docker/cli-plugins/docker-buildx https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64
       - run: chmod a+x ~/.docker/cli-plugins/docker-buildx
+      - run: docker pull docker/binfmt
       - run: docker buildx version
       - run: docker buildx ls
       - run: docker context create testContext
