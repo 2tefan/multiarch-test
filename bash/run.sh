@@ -2,4 +2,4 @@
 
 ARCHITECTURE="$(arch)"
 
-echo "This is beeing executed on:" $ARCHITECTURE
+echo "This is beeing executed on: \""$ARCHITECTURE"\""
