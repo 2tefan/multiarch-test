@@ -3,4 +3,4 @@
 echo "I am alive!"
 ARCHITECTURE="$(arch)"
 
-echo "This is running on:" $ARCHITECTURE
+echo "This is beeing build on:" $ARCHITECTURE
