@@ -19,6 +19,7 @@ jobs:
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: |
           docker buildx build --push \
+            --progress=plain \
             --platform linux/arm64/v8,linux/amd64,linux/386,linux/arm/v7,linux/ppc64le,linux/s390x \
             --tag 2tefan/multiarch-test:buildx .
 
