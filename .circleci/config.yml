@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:stable
+      - image: arm64v8/docker:stable
     steps:
       - checkout
       - setup_remote_docker:
