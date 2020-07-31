@@ -21,7 +21,7 @@ Just use `build.sh`. It will use the platform you are currently on and build the
 Currently only x86 and aarch64 are supported, but feel free to extend it.
   
 ## Usage
-Just pull the image from [docker: 2tefan/multiarch-test](https://hub.docker.com/repository/docker/2tefan/multiarch-test).
+Just pull the image from [docker: 2tefan/multiarch-test](https://hub.docker.com/r/2tefan/multiarch-test).
 The test tag is the dockerfile build without buildx and buildx is build with buildx.
 
 `docker run 2tefan/multiarch-test:buildx`
