@@ -9,13 +9,14 @@ jobs:
           version: 19.03.12
       - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
       - run: docker context create testContext
-      - run: docker buildx create --use testContext
+      - run: docker buildx create --use --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: |
-          docker buildx build --push \
+          docker buildx build \
             --progress=plain \
-            --platform linux/arm64/v8,linux/amd64,linux/386,linux/arm/v7,linux/ppc64le,linux/s390x \
-            --tag 2tefan/multiarch-test:buildx .
+            --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x \
+            --tag 2tefan/multiarch-test:buildx \
+            --push .
 
   build:
     docker:
