@@ -2,6 +2,7 @@
 
 ARCHITECTURE="$(arch)"
 
+echo "This was build at $1"
 echo "This is beeing executed on: \""$ARCHITECTURE"\""
 echo "nproc:" $(nproc)
 cat /proc/meminfo | grep MemTotal:

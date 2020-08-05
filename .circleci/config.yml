@@ -14,6 +14,48 @@ jobs:
       - run: |
           docker buildx build \
             --progress=plain \
+            --platform linux/386 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+      - run: |
+          docker buildx build \
+            --progress=plain \
+            --platform linux/amd64 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+      - run: |
+          docker buildx build \
+            --progress=plain \
+            --platform linux/arm/v6 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+      - run: |
+          docker buildx build \
+            --progress=plain \
+            --platform linux/arm/v7 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+      - run: |
+          docker buildx build \
+            --progress=plain \
+            --platform linux/arm64/v8 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+      - run: |
+          docker buildx build \
+            --progress=plain \
+            --platform linux/ppc64le \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+      - run: |
+          docker buildx build \
+            --progress=plain \
+            --platform linux/s390x \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+      - run: |
+          docker buildx build \
+            --progress=plain \
             --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x \
             --tag 2tefan/multiarch-test:buildx \
             --push .
