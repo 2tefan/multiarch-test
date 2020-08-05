@@ -49,6 +49,10 @@ jobs:
       - run: ls /home/circleci/docker-cache -la
       - persist_to_workspace:
           root: /home/circleci/docker-cache
+          paths:
+            - index.json
+            - blobs/*
+            - ingest/*
 
   build-amd64:
     docker:
