@@ -1,30 +1,185 @@
 version: 2
 jobs:
-  build:
+  build-amd64:
     docker:
-      - image: docker:stable
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
     steps:
       - checkout
       - setup_remote_docker:
           version: 19.03.12
-      - run: apk add make curl
-      - run: mkdir -vp ~/.docker/cli-plugins/
-      - run: curl --silent -L --output ~/.docker/cli-plugins/docker-buildx https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64
-      - run: chmod a+x ~/.docker/cli-plugins/docker-buildx
+      - attach_workspace:
+          at: /home/circleci/docker-cache
       - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
-      - run: docker buildx version
-      - run: docker buildx ls
       - run: docker context create testContext
-      - run: docker buildx create --use testContext
+      - run: docker buildx create --use --platform linux/amd64 testContext
+      - run: |
+          docker buildx build \
+            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --progress=plain \
+            --platform linux/amd64 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+
+  build-arm64/v8:
+    docker:
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - attach_workspace:
+          at: /home/circleci/docker-cache
+      - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker context create testContext
+      - run: docker buildx create --use --platform linux/arm64/v8 testContext
+      - run: |
+          docker buildx build \
+            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --progress=plain \
+            --platform linux/arm64/v8 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+
+  build-386:
+    docker:
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - attach_workspace:
+          at: /home/circleci/docker-cache
+      - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker context create testContext
+      - run: docker buildx create --use --platform linux/386 testContext
+      - run: |
+          docker buildx build \
+            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --progress=plain \
+            --platform linux/386 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+
+  build-arm/v6:
+    docker:
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - attach_workspace:
+          at: /home/circleci/docker-cache
+      - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker context create testContext
+      - run: docker buildx create --use --platform linux/arm/v6 testContext
+      - run: |
+          docker buildx build \
+            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --progress=plain \
+            --platform linux/arm/v6 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+
+  build-arm/v7:
+    docker:
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - attach_workspace:
+          at: /home/circleci/docker-cache
+      - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker context create testContext
+      - run: docker buildx create --use --platform linux/arm/v7 testContext
+      - run: |
+          docker buildx build \
+            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --progress=plain \
+            --platform linux/arm/v7 \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+
+  build-ppc64le:
+    docker:
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - attach_workspace:
+          at: /home/circleci/docker-cache
+      - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker context create testContext
+      - run: docker buildx create --use --platform linux/ppc64le testContext
+      - run: |
+          docker buildx build \
+            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --progress=plain \
+            --platform linux/ppc64le \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+
+  build-s390x:
+    docker:
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - attach_workspace:
+          at: /home/circleci/docker-cache
+      - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker context create testContext
+      - run: docker buildx create --use --platform linux/s390x testContext
+      - run: |
+          docker buildx build \
+            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --progress=plain \
+            --platform linux/s390x \
+            --tag 2tefan/multiarch-test:buildx \
+            .
+
+  push:
+    docker:
+      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - attach_workspace:
+          at: /home/circleci/docker-cache
+      - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker context create testContext
+      - run: docker buildx create --use --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x testContext
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: |
-          docker buildx build --push \
+          docker buildx build \
+            --cache-from=type=local,src=/home/circleci/docker-cache \
             --progress=plain \
-            --platform linux/arm64/v8,linux/amd64,linux/386,linux/arm/v7,linux/ppc64le,linux/s390x \
-            --tag 2tefan/multiarch-test:buildx .
+            --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x \
+            --tag 2tefan/multiarch-test:buildx \
+            --push .
 
 workflows:
  version: 2
+
  Test_Workflow:
    jobs:
-     - build
+     - build-amd64
+     - build-arm64/v8
+     - build-386
+     - build-arm/v6
+     - build-arm/v7
+     - build-ppc64le
+     - build-s390x
+     
+     - push:
+          requires:
+            - build-amd64
+            - build-arm64/v8
+            - build-386
+            - build-arm/v6
+            - build-arm/v7
+            - build-ppc64le
+            - build-s390x

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "I am alive!"
+echo "I am alive! $(date)"
 ARCHITECTURE="$(arch)"
 
 echo "This is beeing build on: \"$ARCHITECTURE\""
