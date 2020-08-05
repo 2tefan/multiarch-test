@@ -7,54 +7,63 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 19.03.12
+      - run: sudo mkdir -m 777 ~/docker-cache
       - run: docker run  --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
       - run: docker context create testContext
       - run: docker buildx create --use --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x testContext
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: |
           docker buildx build \
+            --cache-to=type=local,dest=~/docker-cache
             --progress=plain \
             --platform linux/386 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
+            --cache-to=type=local,dest=~/docker-cache
             --progress=plain \
             --platform linux/amd64 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
+            --cache-to=type=local,dest=~/docker-cache
             --progress=plain \
             --platform linux/arm/v6 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
+            --cache-to=type=local,dest=~/docker-cache
             --progress=plain \
             --platform linux/arm/v7 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
+            --cache-to=type=local,dest=~/docker-cache
             --progress=plain \
             --platform linux/arm64/v8 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
+            --cache-to=type=local,dest=~/docker-cache
             --progress=plain \
             --platform linux/ppc64le \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
+            --cache-to=type=local,dest=~/docker-cache
             --progress=plain \
             --platform linux/s390x \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
+            --cache-from=type=local,src=~/docker-cache
             --progress=plain \
             --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x \
             --tag 2tefan/multiarch-test:buildx \
