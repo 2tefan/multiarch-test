@@ -46,6 +46,7 @@ jobs:
             --platform linux/s390x \
             --tag 2tefan/multiarch-test:buildx \
             .
+      - run: ls /home/circleci/docker-cache -la
       - persist_to_workspace:
           root: /home/circleci/docker-cache
 
