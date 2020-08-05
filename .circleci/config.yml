@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  setup:
     docker:
       - image: docker:stable
     steps:
@@ -17,6 +17,11 @@ jobs:
       - run: docker context create testContext
       - run: docker buildx create --use testContext
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+
+  build:
+    docker:
+      - image: docker:stable
+    steps:
       - run: |
           docker buildx build --push \
             --progress=plain \
@@ -25,6 +30,10 @@ jobs:
 
 workflows:
  version: 2
+
  Test_Workflow:
    jobs:
-     - build
+     - setup
+     - build:
+          requires:
+            - setup
