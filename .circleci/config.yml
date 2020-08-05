@@ -1,14 +1,5 @@
 version: 2
 jobs:
-  setup:
-    docker:
-      - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 19.03.12
-      - run: sudo mkdir -m 777 /home/circleci/docker-cache
-
   build-amd64:
     docker:
       - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
@@ -175,28 +166,14 @@ workflows:
 
  Test_Workflow:
    jobs:
-     - setup
-     - build-amd64:
-          requires:
-            - setup
-     - build-arm64/v8:
-          requires:
-            - setup
-     - build-386:
-          requires:
-            - setup
-     - build-arm/v6:
-          requires:
-            - setup
-     - build-arm/v7:
-          requires:
-            - setup
-     - build-ppc64le:
-          requires:
-            - setup
-     - build-s390x:
-          requires:
-            - setup
+     - build-amd64
+     - build-arm64/v8
+     - build-386
+     - build-arm/v6
+     - build-arm/v7
+     - build-ppc64le
+     - build-s390x
+     
      - push:
           requires:
             - build-amd64
