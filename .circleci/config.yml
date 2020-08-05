@@ -14,49 +14,49 @@ jobs:
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=~/docker-cache
+            --cache-to=type=local,dest=~/docker-cache \
             --progress=plain \
             --platform linux/386 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=~/docker-cache
+            --cache-to=type=local,dest=~/docker-cache \
             --progress=plain \
             --platform linux/amd64 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=~/docker-cache
+            --cache-to=type=local,dest=~/docker-cache \
             --progress=plain \
             --platform linux/arm/v6 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=~/docker-cache
+            --cache-to=type=local,dest=~/docker-cache \
             --progress=plain \
             --platform linux/arm/v7 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=~/docker-cache
+            --cache-to=type=local,dest=~/docker-cache \
             --progress=plain \
             --platform linux/arm64/v8 \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=~/docker-cache
+            --cache-to=type=local,dest=~/docker-cache \
             --progress=plain \
             --platform linux/ppc64le \
             --tag 2tefan/multiarch-test:buildx \
             .
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=~/docker-cache
+            --cache-to=type=local,dest=~/docker-cache \
             --progress=plain \
             --platform linux/s390x \
             --tag 2tefan/multiarch-test:buildx \
