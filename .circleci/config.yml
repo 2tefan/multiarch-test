@@ -16,6 +16,9 @@ jobs:
     docker:
       - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
     steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
       - run: |
           docker buildx build --push \
             --progress=plain \
