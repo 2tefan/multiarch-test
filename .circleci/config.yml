@@ -64,9 +64,7 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/docker-cache
           paths:
-            - index.json
-            - blobs/*
-            - ingest/*
+            - linux/386/*
 
   build-arm/v6:
     docker:
@@ -88,10 +86,8 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/docker-cache
           paths:
-            - index.json
-            - blobs/*
-            - ingest/*
-
+            - linux/arm/v6/*
+  
   build-arm/v7:
     docker:
       - image: 2tefan/cimg-base-buildx:stable-18.04-0.4.1
@@ -112,9 +108,7 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/docker-cache
           paths:
-            - index.json
-            - blobs/*
-            - ingest/*
+            - linux/arm/v7/*
 
   build-ppc64le:
     docker:
@@ -136,9 +130,7 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/docker-cache
           paths:
-            - index.json
-            - blobs/*
-            - ingest/*
+            - linux/ppc64le/*
 
   build-s390x:
     docker:
@@ -160,9 +152,7 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/docker-cache
           paths:
-            - index.json
-            - blobs/*
-            - ingest/*
+            - linux/s390x/*
 
   push:
     docker:
