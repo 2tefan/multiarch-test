@@ -12,7 +12,7 @@ jobs:
       - run: docker buildx create --use --platform linux/amd64 testContext
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --cache-to=type=local,dest=/home/circleci/docker-cache/linux/amd64 \
             --progress=plain \
             --platform linux/amd64 \
             --tag 2tefan/multiarch-test:buildx \
@@ -20,9 +20,7 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/docker-cache
           paths:
-            - index.json
-            - blobs/*
-            - ingest/*
+            - linux/amd64/*
 
   build-arm64/v8:
     docker:
@@ -36,7 +34,7 @@ jobs:
       - run: docker buildx create --use --platform linux/arm64/v8 testContext
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --cache-to=type=local,dest=/home/circleci/docker-cache/linux/arm64/v8 \
             --progress=plain \
             --platform linux/arm64/v8 \
             --tag 2tefan/multiarch-test:buildx \
@@ -44,9 +42,7 @@ jobs:
       - persist_to_workspace:
           root: /home/circleci/docker-cache
           paths:
-            - index.json
-            - blobs/*
-            - ingest/*
+            - linux/arm64/v8/*
 
   build-386:
     docker:
@@ -196,18 +192,18 @@ workflows:
    jobs:
      - build-amd64
      - build-arm64/v8
-     - build-386
-     - build-arm/v6
-     - build-arm/v7
-     - build-ppc64le
-     - build-s390x
+    #  - build-386
+    #  - build-arm/v6
+    #  - build-arm/v7
+    #  - build-ppc64le
+    #  - build-s390x
      
      - push:
           requires:
             - build-amd64
             - build-arm64/v8
-            - build-386
-            - build-arm/v6
-            - build-arm/v7
-            - build-ppc64le
-            - build-s390x
+            # - build-386
+            # - build-arm/v6
+            # - build-arm/v7
+            # - build-ppc64le
+            # - build-s390x
