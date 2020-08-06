@@ -56,7 +56,7 @@ jobs:
       - run: docker buildx create --use --platform linux/386 testContext
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --cache-to=type=local,dest=/home/circleci/docker-cache/linux/386 \
             --progress=plain \
             --platform linux/386 \
             --tag 2tefan/multiarch-test:buildx \
@@ -80,7 +80,7 @@ jobs:
       - run: docker buildx create --use --platform linux/arm/v6 testContext
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --cache-to=type=local,dest=/home/circleci/docker-cache/linux/arm/v6 \
             --progress=plain \
             --platform linux/arm/v6 \
             --tag 2tefan/multiarch-test:buildx \
@@ -104,7 +104,7 @@ jobs:
       - run: docker buildx create --use --platform linux/arm/v7 testContext
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --cache-to=type=local,dest=/home/circleci/docker-cache/linux/arm/v7 \
             --progress=plain \
             --platform linux/arm/v7 \
             --tag 2tefan/multiarch-test:buildx \
@@ -128,7 +128,7 @@ jobs:
       - run: docker buildx create --use --platform linux/ppc64le testContext
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --cache-to=type=local,dest=/home/circleci/docker-cache/linux/ppc64le \
             --progress=plain \
             --platform linux/ppc64le \
             --tag 2tefan/multiarch-test:buildx \
@@ -152,7 +152,7 @@ jobs:
       - run: docker buildx create --use --platform linux/s390x testContext
       - run: |
           docker buildx build \
-            --cache-to=type=local,dest=/home/circleci/docker-cache \
+            --cache-to=type=local,dest=/home/circleci/docker-cache/linux/s390x \
             --progress=plain \
             --platform linux/s390x \
             --tag 2tefan/multiarch-test:buildx \
@@ -179,7 +179,13 @@ jobs:
       - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: |
           docker buildx build \
+            --cache-from=type=local,src=/home/circleci/docker-cache/linux/386 \
             --cache-from=type=local,src=/home/circleci/docker-cache/linux/amd64 \
+            --cache-from=type=local,src=/home/circleci/docker-cache/linux/arm/v6 \
+            --cache-from=type=local,src=/home/circleci/docker-cache/linux/arm/v7 \
+            --cache-from=type=local,src=/home/circleci/docker-cache/linux/arm64/v8 \
+            --cache-from=type=local,src=/home/circleci/docker-cache/linux/ppc64le \
+            --cache-from=type=local,src=/home/circleci/docker-cache/linux/s390x \
             --progress=plain \
             --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x \
             --tag 2tefan/multiarch-test:buildx \
